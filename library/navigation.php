@@ -140,6 +140,11 @@ if ( ! function_exists( 'foundationpress_breadcrumb' ) ) {
                 }
                 echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
 
+            } else if ( is_search() ) {
+
+                // Search results page
+                echo '<li class="current item-current-' . get_search_query() . '">Search results for: ' . get_search_query() . '</li>';
+
             } else if ( is_category() ) {
 
                 // Category page
@@ -238,11 +243,6 @@ if ( ! function_exists( 'foundationpress_breadcrumb' ) ) {
 
                 // Paginated archives
                 echo '<li class="current item-current-' . get_query_var('paged') . '">'.__('Page') . ' ' . get_query_var('paged') . '</li>';
-
-            } else if ( is_search() ) {
-
-                // Search results page
-                echo '<li class="current item-current-' . get_search_query() . '">Search results for: ' . get_search_query() . '</li>';
 
             } elseif ( is_404() ) {
 
