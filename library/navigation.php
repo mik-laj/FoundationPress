@@ -140,10 +140,12 @@ if ( ! function_exists( 'foundationpress_breadcrumb' ) ) {
                 }
                 echo '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
 
-            } else if ( is_category() ) {
+            } else if ( is_tax() || is_tag() || is_category() ) {
 
-                // Category page
-                echo '<li class="item-current item-cat-' . $category[0]->term_id . ' item-cat-' . $category[0]->category_nicename . '"><strong class="bread-current bread-cat-' . $category[0]->term_id . ' bread-cat-' . $category[0]->category_nicename . '">' . $category[0]->cat_name . '</strong></li>';
+                $terms = $wp_query->get_queried_object();
+                // TODO: Parent crumbs
+                // Taxonomies page
+                echo '<li class="item-current item-'.$terms->taxonomy.' item-tax-' . $terms->term_id . ' item-tax-' . $terms->slug . '"><strong class="bread-current bread-tax-' . $terms->term_id . ' bread-tax-' . $terms->slug . '">' . $terms->name . '</strong></li>';
 
             } else if ( is_page() ) {
 
@@ -177,17 +179,6 @@ if ( ! function_exists( 'foundationpress_breadcrumb' ) ) {
                     echo '<li class="current item-' . $post->ID . '"> ' . get_the_title() . '</li>';
 
                 }
-            } else if ( is_tag() ) {
-
-                // Tag page
-                // Get tag information
-                $term_id = get_query_var('tag_id');
-                $taxonomy = 'post_tag';
-                $args = 'include=' . $term_id;
-                $terms = get_terms($taxonomy, $args);
-
-                // Display the tag name
-                echo '<li class="current item-tag-' . $terms[0]->term_id . ' item-tag-' . $terms[0]->slug . '">' . $terms[0]->name . '</li>';
 
             } elseif ( is_day() ) {
 
