@@ -244,6 +244,11 @@ if ( ! function_exists( 'foundationpress_breadcrumb' ) ) {
                 // Search results page
                 echo '<li class="current item-current-' . get_search_query() . '">Search results for: ' . get_search_query() . '</li>';
 
+            } elseif ( is_post_type_archive() ){
+            	
+            	// Archive page of a post type
+                echo '<li class="current item-current-' . get_query_var('post_type') . '">'.post_type_archive_title('', false).'</li>';
+
             } elseif ( is_404() ) {
 
                 // 404 page
